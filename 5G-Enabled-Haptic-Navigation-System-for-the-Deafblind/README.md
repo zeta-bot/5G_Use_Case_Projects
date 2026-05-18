@@ -841,11 +841,9 @@ In all these cases, the modularity of our architecture means only the positional
 
 ## License
 
-This project is licensed under the **GNU General Public License v3.0** — see the [LICENSE](LICENSE) file for details.
+This project is licensed under the GNU General Public License v3.0 (GPLv3).
 
-[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-
-> In short: you are free to use, modify, and distribute this project, but any derivative work must also be open-sourced under the same GPL v3 license.
+You are free to use, modify, and distribute this project, but any derivative work must also be open-sourced under the same GPL v3 license.
 
 ---
 
