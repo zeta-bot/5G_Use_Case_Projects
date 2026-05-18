@@ -1,0 +1,191 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\setlist[itemize]{leftmargin=1.4em}
+\setlist[enumerate]{leftmargin=1.6em}
+
+\title{\textbf{5G Innovation Hackathon 2026 Proposal}\\
+\large Gesture-to-Voice over 5G: Real-Time Assistive Communication Platform}
+\author{Team Name: [Enter Team Name] \\
+Institute/Organization: [Enter Institute/Startup/Organization] \\
+Primary Contact: [Name, Email, Phone]}
+\date{Submission Date: [DD Month 2026]}
+
+\begin{document}
+\maketitle
+
+\section*{1. Executive Summary}
+This proposal presents an assistive communication solution that converts hand gestures into spoken output in real time and extends it into a 5G-native service for low-latency, scalable deployment. Our base prototype (already implemented) performs webcam-based hand landmark extraction, gesture classification, debounced sentence construction, and asynchronous text-to-speech output. 
+
+In the hackathon, we will evolve this into a robust 5G use case by integrating edge inference, QoS-aware streaming, and optional cloud services for multilingual speech and remote caregiver dashboards. The system targets inclusive communication in hospitals, public-service counters, classrooms, and disaster-response settings where rapid non-verbal-to-verbal translation can improve accessibility and safety.
+
+\section*{2. Problem Statement}
+People with speech and hearing disabilities frequently face communication barriers in time-sensitive situations, especially when interpreters are unavailable. Existing mobile accessibility tools often struggle with:
+\begin{itemize}
+    \item latency and jitter in real-time translation,
+    \item poor reliability in variable network conditions,
+    \item limited vocabulary and low contextual personalization,
+    \item low interoperability with healthcare, emergency, and enterprise systems.
+\end{itemize}
+
+A 5G-enabled architecture can address these issues through low latency, improved reliability, network slicing, and edge computing support.
+
+\section*{3. Proposed Solution}
+\textbf{Project Name:} GestureVoice-5G
+
+\textbf{Core Idea:} Capture hand gestures on camera-enabled devices, infer intended tokens (words/characters), build context-aware text, and generate real-time speech output, while using 5G network capabilities for performance guarantees.
+
+\subsection*{3.1 Current Working Prototype (Completed)}
+Our existing implementation already includes:
+\begin{itemize}
+    \item Real-time hand tracking using MediaPipe Hands (21 landmarks).
+    \item Wrist-centered, scale-invariant landmark normalization.
+    \item Dual classifier path: trained MLP model and rule-based fallback.
+    \item Stable multi-frame debouncing and cooldown logic for robust token commit.
+    \item Word mode and character mode with control gestures (space, delete, clear, speak).
+    \item Non-blocking asynchronous TTS queue.
+    \item Multiple TTS backends with fallback (Kokoro/Coqui/pyttsx3/macOS \texttt{say}).
+    \item UI overlays for confidence, FPS, active mode, and output sentence.
+\end{itemize}
+
+\subsection*{3.2 5G Hackathon Enhancements (Planned)}
+\begin{itemize}
+    \item Edge deployment of inference service in 5G lab MEC node.
+    \item Adaptive offloading: on-device first, edge fallback for heavy models.
+    \item QoS-aware streaming profile for low-latency gesture frames and speech packets.
+    \item Network slicing policy experiments for assistive traffic prioritization.
+    \item IoT integration APIs for nurse-station displays, classroom boards, and emergency consoles.
+    \item Multilingual TTS/translation pipeline for Indian language support.
+    \item Secure event logging and analytics dashboard for service quality monitoring.
+\end{itemize}
+
+\section*{4. Alignment with Hackathon Thematic Areas}
+\begin{longtable}{p{0.35\linewidth} p{0.6\linewidth}}
+\toprule
+\textbf{Thematic Area} & \textbf{Alignment in This Proposal} \\
+\midrule
+5G/5G Advanced use cases & Real-time assistive communication over 5G with edge inference and reliability testing. \\
+AI/ML for telecom technology & ML-based gesture recognition with confidence filtering and adaptive inference placement. \\
+IoT-enabled applications (healthcare/education/industry) & Integration with healthcare counters, classrooms, and public service kiosks via API/IoT endpoints. \\
+Disaster management / RedCap / FWA & Fast non-verbal communication support in emergency shelters and field operations; lightweight client profile for constrained devices. \\
+NTN integration potential & Future-ready architecture supports delayed/remote inference fallback through satellite-backed connectivity scenarios. \\
+Advanced 5G features (slicing, QoS) & Dedicated assistive communication slice experiments and QoS profile benchmarking. \\
+Telecom security & Secure transport, access control, anonymized telemetry, and compliance-oriented logging. \\
+\bottomrule
+\end{longtable}
+
+\section*{5. System Architecture}
+\textbf{Pipeline:}
+\begin{enumerate}
+    \item \textbf{Capture Layer:} Smartphone/webcam stream from user endpoint.
+    \item \textbf{Perception Layer:} Hand landmark extraction and normalization.
+    \item \textbf{Inference Layer:} Gesture classification (local/edge model selection).
+    \item \textbf{Language Layer:} Debounced token aggregation and sentence generation.
+    \item \textbf{Voice Layer:} Low-latency multilingual TTS output.
+    \item \textbf{Service Layer:} Remote dashboard, alerting, analytics, and logs.
+\end{enumerate}
+
+\textbf{5G Role:}
+\begin{itemize}
+    \item Uplink for real-time gesture frames/feature vectors.
+    \item Edge-hosted inference for reduced round-trip delay.
+    \item Downlink for speech output and service updates.
+    \item QoS/slicing controls for predictable assistive service quality.
+\end{itemize}
+
+\section*{6. Novelty and Differentiation}
+\begin{itemize}
+    \item Practical hybrid inference strategy: deterministic fallback + trainable model.
+    \item Robust interaction design using multi-frame stability and cooldown control.
+    \item 5G-native quality engineering instead of best-effort internet operation.
+    \item Deployment-focused design for real service environments, not only lab demos.
+\end{itemize}
+
+\section*{7. Implementation Plan and Milestones}
+\begin{longtable}{p{0.12\linewidth} p{0.32\linewidth} p{0.46\linewidth}}
+\toprule
+\textbf{Phase} & \textbf{Duration} & \textbf{Deliverables} \\
+\midrule
+P1 & Week 1--2 & Baseline hardening, dataset expansion, multilingual phrase set definition. \\
+P2 & Week 3--4 & Edge inference containerization and 5G lab integration setup. \\
+P3 & Week 5--6 & QoS/slicing experiments, latency benchmarking, packet-loss resilience tests. \\
+P4 & Week 7--8 & Healthcare/classroom IoT integration, dashboard MVP, role-based access controls. \\
+P5 & Week 9--10 & Pilot demonstrations in target scenarios; user feedback loop. \\
+P6 & Week 11--12 & Final optimization, documentation, commercialization and IPR dossier. \\
+\bottomrule
+\end{longtable}
+
+\section*{8. Expected Outcomes and Impact}
+\subsection*{8.1 Technical Targets}
+\begin{itemize}
+    \item End-to-end response time target: sub-250 ms (gesture-to-audio in edge mode).
+    \item Gesture commit stability: $\geq$ 95\% for trained vocabulary in controlled settings.
+    \item Availability target: $\geq$ 99\% session continuity under tested 5G lab conditions.
+\end{itemize}
+
+\subsection*{8.2 Societal Impact}
+\begin{itemize}
+    \item Improves communication accessibility for speech/hearing-impaired users.
+    \item Reduces dependency on human intermediaries in critical contexts.
+    \item Enables inclusive public-service delivery and assistive digital infrastructure.
+\end{itemize}
+
+\section*{9. Scalability and Market Readiness}
+\begin{itemize}
+    \item \textbf{Primary sectors:} Hospitals, education institutes, public-service kiosks, enterprise support desks.
+    \item \textbf{Deployment model:} SaaS + edge appliance + on-prem enterprise options.
+    \item \textbf{Business model:} Subscription licensing for institutions, device bundle partnerships, API usage plans.
+    \item \textbf{Go-to-market:} Pilot with institute 5G lab partners, then state-level accessibility and smart-city programs.
+\end{itemize}
+
+\section*{10. Risk Assessment and Mitigation}
+\begin{longtable}{p{0.34\linewidth} p{0.6\linewidth}}
+\toprule
+\textbf{Risk} & \textbf{Mitigation Strategy} \\
+\midrule
+Gesture variability across users & User-specific calibration flow + mixed dataset training + fallback rules. \\
+Network fluctuation & Adaptive mode switching (on-device/edge), local cache, QoS tuning. \\
+Low-light or occlusion errors & Data augmentation, confidence gating, user guidance overlays. \\
+Privacy/security concerns & Role-based access, encryption in transit, anonymized logs, audit trail. \\
+Language diversity challenge & Modular language packs and phased multilingual rollout. \\
+\bottomrule
+\end{longtable}
+
+\section*{11. IPR, Ethics, and Compliance}
+\begin{itemize}
+    \item File patentability assessment for adaptive gesture-to-voice over QoS-managed 5G architecture.
+    \item Maintain ownership of in-house models, pipeline orchestration, and deployment workflows.
+    \item Apply privacy-by-design principles and store only minimal telemetry needed for reliability improvement.
+    \item Ensure inclusive dataset and UI testing across gender, age group, and skin-tone diversity where feasible.
+\end{itemize}
+
+\section*{12. Seed Funding Utilization Plan}
+Requested seed funding will be used for:
+\begin{itemize}
+    \item data collection and annotation support,
+    \item edge deployment and testing infrastructure,
+    \item multilingual TTS integration and validation,
+    \item pilot deployment logistics and user studies,
+    \item IPR filing and compliance documentation.
+\end{itemize}
+
+\section*{13. Team and Collaboration}
+\begin{itemize}
+    \item Team Composition: Undergraduate/Postgraduate Students + Mentor + Optional Startup/Professional Collaborator.
+    \item Internal Roles: AI/ML lead, telecom systems lead, frontend/integration lead, field testing lead.
+    \item External Support: 5G lab mentors, industry advisors, accessibility-domain experts.
+\end{itemize}
+
+\section*{14. Conclusion}
+GestureVoice-5G is an implementation-ready, socially relevant, and technically scalable 5G use case. We already have a functioning real-time gesture-to-voice baseline and a clear plan to convert it into a production-grade 5G assistive platform. The project aligns with the hackathon's focus on innovation, technical execution, market readiness, and societal impact.
+
+\vspace{1em}
+\noindent\textbf{Hackathon Timeline Note:} This proposal is prepared for the 5G Innovation Hackathon 2026 call window (20 March 2026 to 17 April 2026).
+
+\end{document}
