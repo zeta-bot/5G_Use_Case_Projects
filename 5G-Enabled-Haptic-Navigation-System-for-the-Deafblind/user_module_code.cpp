@@ -5,9 +5,8 @@
 
 using namespace websockets;
 
-// ==============================================================================
 // 1. DATA STRUCTURES & THREAD SAFETY
-// ==============================================================================
+
 enum MsgType { MSG_INIT_REQ, MSG_CTRL_CMD };
 struct OutgoingMsg {
     MsgType type;
@@ -21,9 +20,8 @@ void sysLog(String tag, String msg) {
     Serial.printf("[%08lu] [C%d] [%-12s] %s\n", millis(), xPortGetCoreID(), tag.c_str(), msg.c_str());
 }
 
-// ==============================================================================
 // 2. HARDWARE PINS & BUTTON STRUCT (POLLING ENGINE)
-// ==============================================================================
+
 #define BTN_DOT_PIN     33
 #define BTN_DASH_PIN    32
 #define BTN_DELETE_PIN  27
@@ -70,9 +68,8 @@ bool checkTap(Button &b, unsigned long &outDuration) {
     return triggered;
 }
 
-// ==============================================================================
 // 3. GLOBAL STATE
-// ==============================================================================
+
 enum State { MODE_INPUT, MODE_REVIEW, MODE_NAVIGATION, MODE_PAUSED };
 volatile State currentState = MODE_INPUT;
 volatile bool navActive = false;
@@ -94,9 +91,8 @@ WebsocketsClient client;
 double safeLat = 0.0, safeLon = 0.0;
 unsigned long lastTelemetrySync = 0;
 
-// ==============================================================================
 // 4. CORE 0: STATE MACHINE & LOGIC
-// ==============================================================================
+
 char decode5Bit(char* binaryCode) {
     int val = 0;
     for (int i = 0; i < 5; i++) { 
@@ -196,9 +192,8 @@ void Task_Core0_Processor(void *pvParameters) {
     }
 }
 
-// ==============================================================================
 // 5. CORE 1: RADIO & GPS EDGE SYNC
-// ==============================================================================
+
 const char* ssid = "RUT_BEF3_2G"; 
 const char* password = "Admin@123";
 const char* ws_server_ip = "192.168.116.30"; 
@@ -358,9 +353,8 @@ void Task_Core1_Radio(void *pvParameters) {
     }
 }
 
-// ==============================================================================
 // 6. SETUP 
-// ==============================================================================
+
 void setup() {
     Serial.begin(115200);
     sysLog("BOOT", "--- MASTER 5G HAPTIC ENGINE ---");
