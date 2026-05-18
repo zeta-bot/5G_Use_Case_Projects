@@ -10,9 +10,8 @@ import signal
 import socket
 from datetime import datetime
 
-# ==============================================================================
 # 1. SYSTEM CONFIGURATION & ANTI-KILL MECHANISM
-# ==============================================================================
+
 GOOGLE_KEY = "AIzaSyAXktgfo3zK9SuVlHMBReOpu4iP2o54nAg" # <- Paste your Google API key here
 gmaps = googlemaps.Client(key=GOOGLE_KEY)
 
@@ -38,9 +37,8 @@ def get_local_ip():
     except:
         return "127.0.0.1"
 
-# ==============================================================================
 # 2. EDGE NAVIGATION ENGINE (1M DENSIFICATION + 1 POINT WARNING)
-# ==============================================================================
+
 class MasterNavigator:
     def __init__(self):
         self.is_active = False
@@ -188,9 +186,8 @@ class MasterNavigator:
 
 nav = MasterNavigator()
 
-# ==============================================================================
 # 3. WEBSOCKET ASYNC HANDLER
-# ==============================================================================
+
 async def socket_handler(websocket):
     client_ip = websocket.remote_address[0]
     log("NETWORK", f"Glove Connected: {client_ip}")
