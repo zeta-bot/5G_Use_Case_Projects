@@ -1,0 +1,12 @@
+services:
+  gesture-app:
+    build: .
+    image: gesture-voice-app:latest
+    working_dir: /app
+    volumes:
+      - ./:/app
+    environment:
+      - TTS_BACKEND=pyttsx3
+      - ALLOW_TTS_FALLBACK=1
+      - CAMERA_SOURCE=0
+    command: ["python", "app/main.py"]
